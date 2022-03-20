@@ -65,7 +65,8 @@ class AuthScreen extends StatelessWidget {
                       child: Text(
                         'Welcome',
                         style: TextStyle(
-                          color: Theme.of(context).accentTextTheme.title.color,
+                          color:
+                              Theme.of(context).accentTextTheme.headline6.color,
                           fontSize: 50,
                           fontFamily: 'Anton',
                           fontWeight: FontWeight.normal,
@@ -142,12 +143,12 @@ class _AuthCardState extends State<AuthCard> {
     _formKey.currentState.save();
 
     if (this.mounted) {
-            setState(
-              () {
-                 _isLoading = true;
-              },
-            );
-          }
+      setState(
+        () {
+          _isLoading = true;
+        },
+      );
+    }
     // setState(() {
     //   _isLoading = true;
     // });
@@ -159,18 +160,18 @@ class _AuthCardState extends State<AuthCard> {
         await Provider.of<Auth>(context, listen: false)
             .login(_authData['email'], _authData['password']);
       } else {
-        
         await Provider.of<Auth>(context, listen: false).signup(
           _authData['email'],
-          _authData['password'],);
-        await Provider.of<Auth>(context,listen: false).addUser( new User(
-            name: _nameController.text,
-            surname: _surnameController.text,
-            phoneNumber: _phoneNumberController.text,
-            dateOfBirth: dateOfBirth,
-            email: _authData['email']),
+          _authData['password'],
         );
-      
+        await Provider.of<Auth>(context, listen: false).addUser(
+          new User(
+              name: _nameController.text,
+              surname: _surnameController.text,
+              phoneNumber: _phoneNumberController.text,
+              dateOfBirth: dateOfBirth,
+              email: _authData['email']),
+        );
       }
     }
     // Errors from validation of data
@@ -197,12 +198,12 @@ class _AuthCardState extends State<AuthCard> {
     }
 
     if (this.mounted) {
-            setState(
-              () {
-                 _isLoading = false;
-              },
-            );
-          }
+      setState(
+        () {
+          _isLoading = false;
+        },
+      );
+    }
     // setState(() {
     //   _isLoading = false;
     // });

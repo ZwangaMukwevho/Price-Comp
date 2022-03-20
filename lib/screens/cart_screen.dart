@@ -33,7 +33,8 @@ class CartScreen extends StatelessWidget {
                     label: Text(
                       '\R${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
-                        color: Theme.of(context).primaryTextTheme.title.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.headline6.color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
@@ -48,12 +49,12 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: cart.items.length,
               itemBuilder: (ctx, i) => CartItem(
-                    cart.items.values.toList()[i].id,
-                    cart.items.keys.toList()[i],
-                    cart.items.values.toList()[i].price,
-                    cart.items.values.toList()[i].quantity,
-                    cart.items.values.toList()[i].title,
-                  ),
+                cart.items.values.toList()[i].id,
+                cart.items.keys.toList()[i],
+                cart.items.values.toList()[i].price,
+                cart.items.values.toList()[i].quantity,
+                cart.items.values.toList()[i].title,
+              ),
             ),
           )
         ],
@@ -70,7 +71,7 @@ class OrderButton extends StatefulWidget {
 
   final Cart cart;
 
-  @override 
+  @override
   _OrderButtonState createState() => _OrderButtonState();
 }
 
@@ -80,25 +81,26 @@ class _OrderButtonState extends State<OrderButton> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-
       // Showing a spinner if person is ordering
-      child: _isLoading? CircularProgressIndicator() :Text('ORDER NOW'),
+      child: _isLoading ? CircularProgressIndicator() : Text('ORDER NOW'),
 
       // IF the amount to order is 0 then disable the order button
-      onPressed: (widget.cart.totalAmount <=0 || _isLoading) ? null: () async {
-        setState(() {
-          _isLoading = true;
-        });
+      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
 
-        await Provider.of<Orders>(context, listen: false).addOrder(
-          widget.cart.items.values.toList(),
-          widget.cart.totalAmount,
-        );
-          setState(() {
-          _isLoading = false;
-        });
-        widget.cart.clear();
-      },
+              await Provider.of<Orders>(context, listen: false).addOrder(
+                widget.cart.items.values.toList(),
+                widget.cart.totalAmount,
+              );
+              setState(() {
+                _isLoading = false;
+              });
+              widget.cart.clear();
+            },
       textColor: Theme.of(context).primaryColor,
     );
   }
