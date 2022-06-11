@@ -31,12 +31,13 @@ class ScrapProducts with ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  Future<void> fetchAndSetProducts(String shop, [bool filterByUser = false] ) async {
+  Future<void> fetchAndSetProducts(String shop,
+      [bool filterByUser = false]) async {
     // Only filter by user if filterByUser argument is sent to true
     final fiterString =
         filterByUser ? '&orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
-        'https://shoppingappflutter-9c12b.firebaseio.com/product/$shop/bakery.json?auth=$authToken$fiterString';
+        'https://shoppingappflutter-9c12b.firebaseio.com/product/picknpay/bakery.json?auth=$authToken';
 
     // Use a try and catch incase the http method fails
     try {
@@ -51,10 +52,10 @@ class ScrapProducts with ChangeNotifier {
       }
 
       // Fetching favorite status
-      url =
-          'https://shoppingappflutter-9c12b.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
-      final favoriteResponse = await http.get(url);
-      final favoriteData = json.decode(favoriteResponse.body);
+      // url =
+      //     'https://shoppingappflutter-9c12b.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      // final favoriteResponse = await http.get(url);
+      // final favoriteData = json.decode(favoriteResponse.body);
 
       final List<ScrapProduct> loadedProducts = [];
 
@@ -65,19 +66,21 @@ class ScrapProducts with ChangeNotifier {
             id: prodId,
             title: prodData['title'],
             promotion: prodData['promotion'],
-            price: prodData['price'],
+            currentPrice: prodData['currentPrice'],
             promotionPrice: prodData['promotionPrice'],
             imageUrl: prodData['imageUrl'],
-            isFavorite:
-                favoriteData == 0 ? false : true,
+            isFavorite: false,
+            // isFavorite: favoriteData == 0 ? false : true,
           ),
         );
       });
 
       // Load the products to item list and notify listeners after this is done
+      print("throw error");
       _items = loadedProducts;
       notifyListeners();
     } catch (error) {
+      print("throw error");
       throw (error);
     }
   }
@@ -95,7 +98,7 @@ class ScrapProducts with ChangeNotifier {
         'title': product.title,
         'description': product.promotionPrice,
         'imageUrl': product.imageUrl,
-        'price': product.price,
+        'currentPrice': product.currentPrice,
         'creatorId': userId,
       }),
     )
@@ -105,7 +108,7 @@ class ScrapProducts with ChangeNotifier {
         title: product.title,
         promotionPrice: product.promotionPrice,
         promotion: product.promotion,
-        price: product.price,
+        currentPrice: product.currentPrice,
         imageUrl: product.imageUrl,
         id: json.decode(response.body)['name'],
       );
@@ -133,13 +136,12 @@ class ScrapProducts with ChangeNotifier {
           'title': newProduct.title,
           'description': newProduct.promotionPrice,
           'imageUrl': newProduct.imageUrl,
-          'price': newProduct.price,
+          'currentPrice': newProduct.currentPrice,
         }),
       );
       _items[prodIndex] = newProduct;
       notifyListeners();
-    } else {
-    }
+    } else {}
   }
 
   // Method to delete a product from the server

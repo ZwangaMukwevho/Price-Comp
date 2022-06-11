@@ -25,6 +25,7 @@ import 'screens/home_screen.dart';
 import 'providers/sale.dart';
 import './providers/users.dart';
 import './screens/personal_details_screen.dart';
+import './providers/scrap_products.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           ),
           // ignore: missing_required_param
           ChangeNotifierProxyProvider<Auth, Users>(
-            update: (ctx, auth, _) => Users(auth.token, auth.userId),    
+            update: (ctx, auth, _) => Users(auth.token, auth.userId),
           ),
           // ignore: missing_required_param
           ChangeNotifierProxyProvider<Auth, Products>(
@@ -48,15 +49,22 @@ class MyApp extends StatelessWidget {
               previousProducts == null ? [] : previousProducts.items,
             ),
           ),
+          ChangeNotifierProxyProvider<Auth, ScrapProducts>(
+            update: (ctx, auth, previousProducts) => ScrapProducts(
+              auth.token,
+              auth.userId,
+              previousProducts == null ? [] : previousProducts.items,
+            ),
+          ),
           // ignore: missing_required_param
           ChangeNotifierProxyProvider<Auth, SearchWord>(
             update: (ctx, auth, _) => SearchWord(auth.token, auth.userId),
           ),
-           // ignore: missing_required_param
-           ChangeNotifierProxyProvider<Auth, Sale>(
-            update: (ctx, auth, _) => Sale(auth.token, auth.userId),    
+          // ignore: missing_required_param
+          ChangeNotifierProxyProvider<Auth, Sale>(
+            update: (ctx, auth, _) => Sale(auth.token, auth.userId),
           ),
-         
+
           ChangeNotifierProvider.value(
             value: Cart(),
           ),
@@ -101,12 +109,14 @@ class MyApp extends StatelessWidget {
                 CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
                 ShopsScreen.routeName: (ctx) => ShopsScreen(),
                 ComparisonScreen.routeName: (ctx) => ComparisonScreen(),
-                ProductsOverviewScreen.routeName: (ctx) => ProductsOverviewScreen(),
+                ProductsOverviewScreen.routeName: (ctx) =>
+                    ProductsOverviewScreen(),
                 SeacrchProduct.routeName: (ctx) => SeacrchProduct(),
                 ProfileScreen.routeName: (ctx) => ProfileScreen(),
                 BottomTabScreen.routeName: (ctx) => BottomTabScreen(),
                 HomeScreen.routeName: (ctx) => HomeScreen(),
-                PersonalDetailsScreen.routeName: (ctx) => PersonalDetailsScreen(),
+                PersonalDetailsScreen.routeName: (ctx) =>
+                    PersonalDetailsScreen(),
               }),
         ));
   }

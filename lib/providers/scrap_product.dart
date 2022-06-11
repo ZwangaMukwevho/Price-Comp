@@ -6,8 +6,8 @@ class ScrapProduct with ChangeNotifier {
   final String id;
   final String title;
   final String promotion;
-  final double promotionPrice;
-  final double price;
+  final int promotionPrice;
+  final String currentPrice;
   final String imageUrl;
   bool isFavorite;
 
@@ -16,7 +16,7 @@ class ScrapProduct with ChangeNotifier {
     @required this.title,
     @required this.promotion,
     @required this.promotionPrice,
-    @required this.price,
+    @required this.currentPrice,
     @required this.imageUrl,
     this.isFavorite = false,
   });

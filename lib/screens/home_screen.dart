@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/product.dart';
+import 'package:shop_app/providers/scrap_products.dart';
 import 'package:shop_app/providers/users.dart';
 
 import '../widgets/app_drawer.dart';
@@ -37,13 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
       Future.delayed(Duration(milliseconds: 700)).then((_) async {
         final userProv = Provider.of<Users>(context, listen: false);
-    userProv.fetchAndSetUsers();
+        userProv.fetchAndSetUsers();
         Provider.of<Sale>(context, listen: false).fetchAndSetSales();
         Provider.of<SearchWord>(context, listen: false).fetchAndSetWords();
         await Provider.of<Products>(context, listen: false)
             .fetchAndSetProducts()
             .then((_) {
-              
+          setState(() {
+            _isLoading = false;
+          });
+        });
+        await Provider.of<ScrapProducts>(context, listen: false)
+            .fetchAndSetProducts("picknpay")
+            .then((_) {
           setState(() {
             _isLoading = false;
           });

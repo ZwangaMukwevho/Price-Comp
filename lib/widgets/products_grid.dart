@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/scrap_products.dart';
 
-  
 import '../providers/products.dart';
 import './product_item.dart';
 
@@ -12,10 +12,14 @@ class ProductsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<Products>(context);
-    final products = showFavs ? productsData.favoriteItems : productsData.items;
+    // final productsData = Provider.of<Products>(context);
+    // final products = showFavs ? productsData.favoriteItems : productsData.items;
 
-  
+    final productsData = Provider.of<ScrapProducts>(context);
+    final products = productsData.items;
+    print("products length");
+    print(products.length);
+
     return GridView.builder(
       padding: const EdgeInsets.all(5.0),
       itemCount: products.length,
@@ -24,7 +28,7 @@ class ProductsGrid extends StatelessWidget {
         value: products[i],
         child: ProductItem(
             // products[i].id,
-            // products[i].title,
+            // products[i].title,s
             // products[i].imageUrl,
             ),
       ),
