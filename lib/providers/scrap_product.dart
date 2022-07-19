@@ -6,7 +6,7 @@ class ScrapProduct with ChangeNotifier {
   final String id;
   final String title;
   final String promotion;
-  final int promotionPrice;
+  final String promotionPrice;
   final String currentPrice;
   final String imageUrl;
   bool isFavorite;

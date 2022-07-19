@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/providers/scrap_products.dart';
 
+import 'package:shop_app/providers/scrap_products.dart';
 import '../providers/products.dart';
 import './product_item.dart';
+import './product_details.dart';
 
 class ProductsGrid extends StatelessWidget {
   final bool showFavs;
@@ -17,8 +18,6 @@ class ProductsGrid extends StatelessWidget {
 
     final productsData = Provider.of<ScrapProducts>(context);
     final products = productsData.items;
-    print("products length");
-    print(products.length);
 
     return GridView.builder(
       padding: const EdgeInsets.all(5.0),
@@ -26,7 +25,7 @@ class ProductsGrid extends StatelessWidget {
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         // builder: (c) => products[i],
         value: products[i],
-        child: ProductItem(
+        child: ProductDetails(
             // products[i].id,
             // products[i].title,s
             // products[i].imageUrl,
@@ -34,7 +33,7 @@ class ProductsGrid extends StatelessWidget {
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 3 / 3,
+        childAspectRatio: 2.5 / 3,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),

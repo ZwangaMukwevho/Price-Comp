@@ -58,7 +58,7 @@ class ProductItem extends StatelessWidget {
           ),
           trailing: Text(
             // '\R${product.price.toStringAsFixed(2)}',
-            '\R${scrapProduct.promotionPrice.toStringAsFixed(2)}',
+            scrapProduct.promotionPrice,
             textAlign: TextAlign.right,
             style: TextStyle(
                 color: Colors.white, decoration: TextDecoration.lineThrough),

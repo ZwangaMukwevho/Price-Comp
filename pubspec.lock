@@ -254,6 +254,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.2+3"
+  show_if:
+    dependency: "direct main"
+    description:
+      name: show_if
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   sky_engine:
     dependency: transitive
     description: flutter
