@@ -7,6 +7,7 @@ import '../widgets/badge.dart';
 import '../providers/cart.dart';
 import './cart_screen.dart';
 import '../providers/products.dart';
+import '../providers/scrap_products.dart';
 
 enum FilterOptions {
   Favorites,
@@ -41,7 +42,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         _isLoading = true;
       });
 
-      Provider.of<Products>(context).fetchAndSetProducts().then((_) {
+      Provider.of<ScrapProducts>(context)
+          .fetchAndSetProducts('picknpay')
+          .then((_) {
         setState(() {
           _isLoading = false;
         });

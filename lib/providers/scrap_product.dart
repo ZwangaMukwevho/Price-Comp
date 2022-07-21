@@ -28,6 +28,8 @@ class ScrapProduct with ChangeNotifier {
   }
 
   Future<void> toggleFavoriteStatus(String token, String userId) async {
+    print(isFavorite);
+
     // Change the is favorite variable
     final originalValue = isFavorite;
     isFavorite = !isFavorite;

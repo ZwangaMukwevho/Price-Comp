@@ -3,11 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:show_if/show_if.dart';
 
 import '../providers/scrap_product.dart';
+import '../providers/auth.dart';
 
 class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scrapProduct = Provider.of<ScrapProduct>(context, listen: false);
+    final authData = Provider.of<Auth>(context, listen: false);
+
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -115,6 +118,8 @@ class ProductDetails extends StatelessWidget {
                   ),
                   color: Theme.of(context).accentColor,
                   onPressed: () {
+                    scrapProduct.toggleFavoriteStatus(
+                        authData.token, authData.userId);
                     // product.toggleFavoriteStatus(authData.token, authData.userId);
                   },
                 ),
