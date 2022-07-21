@@ -110,19 +110,34 @@ class ProductDetails extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  icon: Icon(
-                    scrapProduct.isFavorite == 1
-                        ? Icons.favorite
-                        : Icons.favorite_border,
+                Consumer<ScrapProduct>(
+                  builder: (ctx, scrapProduct, _) => IconButton(
+                    icon: Icon(
+                      scrapProduct.isFavorite == 1
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                    ),
+                    color: Theme.of(context).accentColor,
+                    onPressed: () {
+                      scrapProduct.toggleFavoriteStatus(
+                          authData.token, authData.userId);
+                      // product.toggleFavoriteStatus(authData.token, authData.userId);
+                    },
                   ),
-                  color: Theme.of(context).accentColor,
-                  onPressed: () {
-                    scrapProduct.toggleFavoriteStatus(
-                        authData.token, authData.userId);
-                    // product.toggleFavoriteStatus(authData.token, authData.userId);
-                  },
                 ),
+                // IconButton(
+                //   icon: Icon(
+                //     scrapProduct.isFavorite == 1
+                //         ? Icons.favorite
+                //         : Icons.favorite_border,
+                //   ),
+                //   color: Theme.of(context).accentColor,
+                //   onPressed: () {
+                //     scrapProduct.toggleFavoriteStatus(
+                //         authData.token, authData.userId);
+                //     // product.toggleFavoriteStatus(authData.token, authData.userId);
+                //   },
+                // ),
                 IconButton(
                   icon: Icon(
                     Icons.shopping_cart,
