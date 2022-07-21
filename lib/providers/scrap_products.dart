@@ -17,14 +17,11 @@ class ScrapProducts with ChangeNotifier {
   // var _showFavoritesOnly = false;
 
   List<ScrapProduct> get items {
-    // if (_showFavoritesOnly) {
-    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
-    // }
     return [..._items];
   }
 
   List<ScrapProduct> get favoriteItems {
-    return _items.where((prodItem) => prodItem.isFavorite).toList();
+    return _items.where((prodItem) => prodItem.isFavorite == 1).toList();
   }
 
   ScrapProduct findById(String id) {
@@ -69,8 +66,7 @@ class ScrapProducts with ChangeNotifier {
             currentPrice: prodData['currentPrice'],
             promotionPrice: prodData['promotionPrice'],
             imageUrl: prodData['imageUrl'],
-            isFavorite: false,
-            // isFavorite: favoriteData == 0 ? false : true,
+            isFavorite: prodData['isFavorite'],
           ),
         );
       });

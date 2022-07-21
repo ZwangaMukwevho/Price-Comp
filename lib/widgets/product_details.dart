@@ -112,7 +112,7 @@ class ProductDetails extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(
-                    scrapProduct.isFavorite
+                    scrapProduct.isFavorite == 1
                         ? Icons.favorite
                         : Icons.favorite_border,
                   ),

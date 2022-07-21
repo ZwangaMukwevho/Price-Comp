@@ -69,7 +69,7 @@ class ProductItem extends StatelessWidget {
           leading: Consumer<ScrapProduct>(
             builder: (ctx, scrapProduct, _) => IconButton(
               icon: Icon(
-                scrapProduct.isFavorite
+                scrapProduct.isFavorite == 1
                     ? Icons.favorite
                     : Icons.favorite_border,
               ),

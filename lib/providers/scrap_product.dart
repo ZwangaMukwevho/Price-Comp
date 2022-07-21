@@ -9,7 +9,7 @@ class ScrapProduct with ChangeNotifier {
   final String promotionPrice;
   final String currentPrice;
   final String imageUrl;
-  bool isFavorite;
+  int isFavorite;
 
   ScrapProduct({
     @required this.id,
@@ -18,21 +18,25 @@ class ScrapProduct with ChangeNotifier {
     @required this.promotionPrice,
     @required this.currentPrice,
     @required this.imageUrl,
-    this.isFavorite = false,
+    @required this.isFavorite,
   });
 
   //Method for re-rolling value of favorite item when an error occured
-  void _setFavValue(bool newValue) {
+  void _setFavValue(int newValue) {
     isFavorite = newValue;
     notifyListeners();
   }
 
   Future<void> toggleFavoriteStatus(String token, String userId) async {
-    print(isFavorite);
+    // print(isFavorite);
 
     // Change the is favorite variable
     final originalValue = isFavorite;
-    isFavorite = !isFavorite;
+    if (isFavorite == 0) {
+      isFavorite = 1;
+    } else {
+      isFavorite = 0;
+    }
     notifyListeners();
 
     // Link of url of product
