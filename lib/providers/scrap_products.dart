@@ -49,10 +49,10 @@ class ScrapProducts with ChangeNotifier {
       }
 
       // Fetching favorite status
-      // url =
-      //     'https://shoppingappflutter-9c12b.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
-      // final favoriteResponse = await http.get(url);
-      // final favoriteData = json.decode(favoriteResponse.body);
+      url =
+          'https://shoppingappflutter-9c12b.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
 
       final List<ScrapProduct> loadedProducts = [];
 
@@ -66,7 +66,7 @@ class ScrapProducts with ChangeNotifier {
             currentPrice: prodData['currentPrice'],
             promotionPrice: prodData['promotionPrice'],
             imageUrl: prodData['imageUrl'],
-            isFavorite: prodData['isFavorite'],
+            isFavorite: favoriteData == null ? 0 : favoriteData[prodId] ?? 0,
           ),
         );
       });
